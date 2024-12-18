@@ -17,7 +17,19 @@ The open-source version of Anthropic's improved prompt can be used with differen
 
 ## Installation
 
+This project requires Python 3.11. It is recommended to use a dedicated virtual environment:
+
 ```bash
+# Create a virtual environment
+python3.11 -m venv venv
+
+# Activate the virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+# .\venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 

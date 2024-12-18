@@ -65,10 +65,6 @@ class Prompt(BaseModel):
         """Safely get an extra field with a default value if it doesn't exist."""
         return getattr(self, field_name, default)
     
-def demo_card_click(e: gr.EventData):
-    index = e._data['component']['index']
-    return DEMO_LIST[index]['description']
-
 def analyze_prompt(target_prompt: str, feedback: str, language: str, model: ChatCompletionModel) -> str:
     prompt_template = Prompt.from_yaml(open('./prompts/analyze_prompt.yaml', 'r').read())
     prompt = prompt_template.render({
@@ -94,13 +90,13 @@ def optimize_prompt(report: str, target_prompt: str, language: str, model: ChatC
     logger.info(f"Prompt Result: {output}")
     return output
 
-def process_analysis(target_prompt: str, feedback: str, language: str, model_id: str) -> Tuple[str, int]:
+def process_analysis(target_prompt: str, feedback: str, language: str, model_id: str) -> str:
     """First step: Analyze the prompt and return the report"""
     model = load_chat_model(model_id)
     report = analyze_prompt(target_prompt, feedback, language, model)
     return report
 
-def process_optimization(report: str, target_prompt: str, language: str, model_id: str) -> Tuple[str, int]:
+def process_optimization(report: str, target_prompt: str, language: str, model_id: str) -> str:
     """Second step: Generate the optimized prompt based on the analysis"""
     model = load_chat_model(model_id)
     optimization = optimize_prompt(report, target_prompt, language, model)
