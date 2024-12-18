@@ -1,0 +1,74 @@
+name: analyze_prompt
+description: 分析prompt
+format: jinja2
+temperature: 0.7
+max_tokens: 4000
+prompt: |
+  你是一名prompt大师，你的任务是分析下面的prompt，同时参考feedback，生成分析报告。
+
+  prompt如下：
+  <prompt>
+  {{prompt}}
+  </prompt>
+
+  feedback如下：
+  <feedback>
+  {{feedback}}
+  </feedback>
+
+  分析报告的内容包括：
+  <template>
+  1. 任务意图和应用场景
+  [识别prompt的意图和应用场景]
+  2. 任务流程
+  [用Mermaid分析任务的流程图，直接生成流程图即可，不用再用文字解释一遍]
+  3. 任务示例
+  [如果有示例，请分析示例，否则，跳过此步骤]
+  4. 任务分析
+  [如果是复杂任务，需要要求生成分析过程]
+  5. 格式要求
+  [如果有格式要求，请分析格式的要求，否则，跳过此步骤]
+  6. 参数说明
+  [输入参数包含{{parameters}}，用xml标签包裹，jinja2格式渲染]
+  7. 解决反馈
+  [分析用户的反馈，并给出解决思路]
+  </template>
+
+  可以参考下面的示例：
+  <example>
+  1. Intent and Deployment Circumstance:
+  The prompt's intent is to classify a given sentence by identifying which Wikipedia article it likely came from, given a list of article titles. This task is probably part of a larger text classification or information retrieval system.
+
+  2. Flowchart:
+  ```mermaid
+  graph TD
+      A[Start] --> B[Receive list of article titles]
+      B --> C[Receive sentence to classify]
+      C --> D[Analyze sentence]
+      D --> E[Compare sentence to each article title]
+      E --> F[Identify most likely article]
+      F --> G[Output article title]
+      G --> H[End]
+  ```
+
+  3. Lessons from Examples:
+  No examples were provided in the original prompt. However, we can infer that:
+  - The input will consist of a list of Wikipedia article titles and a single sentence.
+  - The output should be just the title of the most relevant article, with no additional text.
+
+  4. Chain-of-Thought Reasoning:
+  Given the complexity of the task and the user's feedback about accuracy, it would be beneficial to include chain-of-thought reasoning. We'll use <analysis> tags for this purpose.
+
+  5. Output Format:
+  The original prompt specifies that the output should be "just the article title and nothing else." We'll maintain this requirement and provide a clear example in the instructions.
+
+  6. Variable Introduction:
+  We'll introduce two variables:
+  - <article_titles> for the list of Wikipedia article titles
+  - <sentence> for the sentence to be classified
+
+  7. Addressing User Feedback:
+  The user feedback "总结不够准确" translates to "The summary is not accurate enough." To address this, we'll instruct the model to carefully analyze the sentence and compare it to each article title, considering key words and themes before making a decision.
+  </example>
+
+  请在<report>标签中输出分析报告，不要输出其他内容，用{{language}}输出。

@@ -1,0 +1,67 @@
+name: optimize_prompt
+description: 优化prompt
+format: jinja2
+temperature: 0.7
+max_tokens: 4000
+prompt: |
+  你是一个专业的meta prompt工程师，请基于下面的prompt分析，改进老版prompt。
+
+  prompt分析如下：
+  <analysis>
+  {{report}}
+  </analysis>
+
+  老版prompt如下:
+  <oldPrompt>
+  {{prompt}}
+  </oldPrompt>
+
+  参考上面的分析，改进老版prompt，内容包含：
+  <template>
+  [定义清晰、专业角色，描述任务的意图和应用场景]
+
+  [列出输入参数，用xml标签包裹，模型参数用"\{\{ \}\}"表示，jinja2格式渲染]
+
+  [列出任务的关键步骤、要求、定义等]
+
+  [列出对任务有帮助的分析，并在prompt中说明要置于<analysis>标签中]
+
+  [格式要求]
+
+  [引导开始，并在prompt中说明结果输出要置于<output>标签中]
+  </template>
+
+  按照每块的要求，直接生成内容，不要列出标题，不要遗漏老版prompt中的关键内容，例如下面的示例：
+
+  <example>
+  You are an intelligent text classification system specialized in matching sentences to Wikipedia article titles. Your task is to identify which Wikipedia article a given sentence most likely belongs to, based on a provided list of article titles.
+
+  First, review the following list of Wikipedia article titles:
+  <article_titles>
+  {titles}
+  </article_titles>
+
+  Now, consider this sentence that needs to be classified:
+  <sentence_to_classify>
+  {sentence}
+  </sentence_to_classify>
+
+  Your goal is to determine which article title from the provided list best matches the given sentence. Follow these steps:
+
+  1. List the key concepts from the sentence
+  2. Compare each key concept with the article titles
+  3. Rank the top 3 most relevant titles and explain why they are relevant
+  4. Select the most appropriate article title that best encompasses or relates to the sentence's content
+
+  Wrap your analysis in <analysis> tags. Include the following:
+  - List of key concepts from the sentence
+  - Comparison of each key concept with the article titles
+  - Ranking of top 3 most relevant titles with explanations
+  - Your final choice and reasoning
+
+  After your analysis, provide your final answer: the single most appropriate Wikipedia article title from the list.
+
+  Output only the chosen article title, without any additional text or explanation.
+  </example>
+
+  在<prompt>标签中输出新版prompt，不要输出其他内容，用{{language}}输出。

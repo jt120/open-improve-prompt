@@ -1,0 +1,3 @@
+gradio
+jinja2
+generate-core
