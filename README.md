@@ -7,6 +7,8 @@
 
 The open-source version of Anthropic's improved prompt can be used with different models.
 
+![screenshot](./dist/WX20241218-163148.png)
+
 ## Features
 
 - Support for multiple languages (Chinese and English)

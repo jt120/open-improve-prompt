@@ -7,6 +7,8 @@
 
 这是 [Anthropic 提示增强](https://console.anthropic.com/dashboard)的开源版本，可以切换不同的模型。
 
+![screenshot](./dist/WX20241218-163148.png)
+
 ## 功能特点
 
 - 支持生成中文和英文
